@@ -3,6 +3,9 @@ package com.estsoft.springdemoproject.ioc;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
+ * DI + IoC + Interface 다형성
+ * -> 개념 참고
+ * <p>
  * A 클래스에서
  * 일반 클래스에 의존 VS interface에 의존
  * 각 경우에 변경사항 생겼을 경우, 인터페이스가 변경에 더 유리
