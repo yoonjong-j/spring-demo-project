@@ -1,5 +1,6 @@
 package com.estsoft.springdemoproject.blog.domain;
 
+import com.estsoft.springdemoproject.blog.domain.dto.ArticleResponse;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +23,17 @@ public class Article {
     // 생성자
     @Builder
     public Article(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public ArticleResponse convert() {
+        return new ArticleResponse(id, title, content);
+    }
+
+    public void update(String title, String content) {
+//        if (!title.isBlank()) { this.title = title; }
+//        if (!content.isBlank()) { this.content = content; }
         this.title = title;
         this.content = content;
     }
