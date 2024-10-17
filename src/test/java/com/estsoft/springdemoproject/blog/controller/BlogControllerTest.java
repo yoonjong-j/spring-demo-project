@@ -60,7 +60,7 @@ class BlogControllerTest {
         String json = objectMapper.writeValueAsString(request);
 
         // when: POST /articles API 호출
-        ResultActions resultActions = mockMvc.perform(post("/articles")
+        ResultActions resultActions = mockMvc.perform(post("/api/articles")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json));
 
@@ -80,7 +80,7 @@ class BlogControllerTest {
         Article article = repository.save(new Article("title", "content"));
 
         // when: 조회 API
-        ResultActions resultActions = mockMvc.perform(get("/articles")
+        ResultActions resultActions = mockMvc.perform(get("/api/articles")
                 .accept(MediaType.APPLICATION_JSON));
 
         // then: API 호출 결과 검증  json
@@ -97,7 +97,7 @@ class BlogControllerTest {
         Long id = article.getId();
 
         // when: API 호출
-        ResultActions resultActions = mockMvc.perform(get("/articles/{id}", id)
+        ResultActions resultActions = mockMvc.perform(get("/api/articles/{id}", id)
                 .accept(MediaType.APPLICATION_JSON));
 
         // then: API 호출 결과 검증
@@ -112,7 +112,7 @@ class BlogControllerTest {
     @Test
     public void findOneException() throws Exception {
         // when: API 호출
-        ResultActions resultActions = mockMvc.perform(get("/articles/{id}", 1L)
+        ResultActions resultActions = mockMvc.perform(get("/api/articles/{id}", 1L)
                 .accept(MediaType.APPLICATION_JSON));
 
         // then: Exception 검증, STATUS CODE 검증
@@ -127,7 +127,7 @@ class BlogControllerTest {
         Article article = repository.save(new Article("blog title", "blog content"));
         Long id = article.getId();
 
-        ResultActions resultActions = mockMvc.perform(delete("/articles/{id}", id));
+        ResultActions resultActions = mockMvc.perform(delete("/api/articles/{id}", id));
 
         resultActions.andExpect(status().isOk());           // status code 검증
         List<Article> articleList = repository.findAll();
@@ -144,7 +144,7 @@ class BlogControllerTest {
         UpdateArticleRequest request = new UpdateArticleRequest("변경 제목", "변경 내용");
         String updateJsonContent = objectMapper.writeValueAsString(request);
 
-        ResultActions resultActions = mockMvc.perform(put("/articles/{id}", id)
+        ResultActions resultActions = mockMvc.perform(put("/api/articles/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updateJsonContent)
         );
@@ -163,7 +163,7 @@ class BlogControllerTest {
         String requestBody = objectMapper.writeValueAsString(request);
 
         // when : 수정 API 호출    (/articles/{id}, requestBody)
-        ResultActions resultActions = mockMvc.perform(put("/articles/{id}", notExistsId)
+        ResultActions resultActions = mockMvc.perform(put("/api/articles/{id}", notExistsId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody));
 
