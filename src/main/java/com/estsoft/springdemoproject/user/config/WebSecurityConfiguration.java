@@ -27,7 +27,7 @@ public class WebSecurityConfiguration {
     public WebSecurityCustomizer ignore() {
         return webSecurity -> webSecurity.ignoring()
                 .requestMatchers(toH2Console())   // /h2-console
-                .requestMatchers("/static/**");
+                .requestMatchers("/static/**", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html");
     }
 
     // 특정 요청에 대한 보안 구성 (주석 : 6.1 이전 ver. - 6.1 이후 부터는 람다 표현식으로 설정)
@@ -35,6 +35,7 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeHttpRequests(  // 3) 인증, 인가 설정
                     custom -> custom.requestMatchers("/login", "/signup", "/user").permitAll()
+                            .requestMatchers("/articles/**").hasAuthority("ADMIN")       // ADMIN
                             .anyRequest().authenticated()
                 )
 //                .requestMatchers("/login", "/signup", "/user").permitAll()
@@ -44,7 +45,7 @@ public class WebSecurityConfiguration {
 
                 //4) 폼 기반 로그인 설정
                 .formLogin(custom -> custom.loginPage("/login")
-                        .defaultSuccessUrl("/articles"))
+                        .defaultSuccessUrl("/articles", true))
 //                .loginPage("/login")
 //                .defaultSuccessUrl("/articles")     // 로그인 성공했을 경우 리디렉션 URL
 
