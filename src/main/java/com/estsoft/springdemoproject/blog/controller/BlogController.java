@@ -36,7 +36,7 @@ public class BlogController {
         Article article = service.saveArticle(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(article.convert());
+                .body(new ArticleResponse(article));
     }
 
     @ApiResponses(value = {
@@ -47,7 +47,7 @@ public class BlogController {
     public ResponseEntity<List<ArticleResponse>> findAll() {
         // List<Article> -> List<ArticleResponse> 변환해서 응답으로 보내기
         List<ArticleResponse> list = service.findAll().stream()
-                .map(Article::convert)
+                .map(ArticleResponse::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
@@ -58,7 +58,7 @@ public class BlogController {
         Article article = service.findBy(id);   // Exception (5xx server error) -> 4xx Status Code
 
         // Article -> ArticleResponse
-        return ResponseEntity.ok(article.convert());
+        return ResponseEntity.ok(new ArticleResponse(article));
     }
 
     @Parameter(name = "id", description = "블로그 글 ID", example = "1")
@@ -72,6 +72,6 @@ public class BlogController {
     public ResponseEntity<ArticleResponse> updateById(@PathVariable Long id,
                                                       @RequestBody UpdateArticleRequest request) {
         Article updatedArticle = service.update(id, request);
-        return ResponseEntity.ok(updatedArticle.convert());
+        return ResponseEntity.ok(new ArticleResponse(updatedArticle));
     }
 }

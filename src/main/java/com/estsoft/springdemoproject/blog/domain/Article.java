@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "article_id")
     private Long id;
 
     @Column(nullable = false)
@@ -39,10 +40,6 @@ public class Article {
     public Article(String title, String content) {
         this.title = title;
         this.content = content;
-    }
-
-    public ArticleResponse convert() {
-        return new ArticleResponse(id, title, content);
     }
 
     public void update(String title, String content) {
