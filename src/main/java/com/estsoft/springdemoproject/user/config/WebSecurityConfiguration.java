@@ -34,9 +34,7 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeHttpRequests(  // 3) 인증, 인가 설정
                     custom -> custom.requestMatchers("/login", "/signup", "/user").permitAll()
-//                            .requestMatchers("/articles/**").hasAuthority("ADMIN")       // ADMIN
-                            .anyRequest().permitAll()
-//                            .anyRequest().authenticated()
+                            .anyRequest().authenticated()
                 )
 //                .requestMatchers("/login", "/signup", "/user").permitAll()
 //                .anyRequest().authenticated()       // '위에서 정의한 url 이외에는 인증 필요'하다는 설정
