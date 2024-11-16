@@ -11,15 +11,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableEncryptableProperties
 public class JasyptConfigAES {
-    @Value("${jasypt.encryptor.password}") // @Value어노테이션으로 properties 파일에 있는 값 읽어오도록 변경
-    private String password;
+//    @Value("${jasypt.encryptor.password}") // @Value어노테이션으로 properties 파일에 있는 값 읽어오도록 변경
+//    private String password;
 
     @Bean("jasyptEncryptorAES")
     public StringEncryptor stringEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
 
-        config.setPassword(password); // 지정한 암호화키
+        config.setPassword("jasypt_key"); // 지정한 암호화키
         config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256"); // 알고리즘
         config.setKeyObtentionIterations("1000"); // 반복할 해싱 회수
         config.setPoolSize("1"); // 인스턴스 pool
