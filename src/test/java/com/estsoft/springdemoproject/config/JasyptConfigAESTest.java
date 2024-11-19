@@ -9,14 +9,14 @@ import org.junit.jupiter.api.Test;
 class JasyptConfigAESTest {
     @Test
     void stringEncryptor() {
-        String password = "암호화하려는민감정보(패스워드/url/id등)";
+        String password = "password";
 
         System.out.println(jasyptEncoding(password));
     }
 
     public String jasyptEncoding(String value) {
         StandardPBEStringEncryptor pbeEnc = new StandardPBEStringEncryptor();
-        pbeEnc.setPassword("시크릿키(대칭키)");
+        pbeEnc.setPassword("jasypt_key");
         pbeEnc.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
         pbeEnc.setIvGenerator(new RandomIvGenerator());
         pbeEnc.setSaltGenerator(new RandomSaltGenerator());
