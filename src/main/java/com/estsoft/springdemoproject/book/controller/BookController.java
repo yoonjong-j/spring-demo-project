@@ -18,7 +18,7 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    // GET /books
+    // GET /books 책 전체 목록 조회 TEST 작성해보기
     @GetMapping
     public String showAll(Model model) {
         List<BookDTO> list = bookService.findAll()
